@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      - echo Installing backend dependencies...
+      - cd backend
+      - npm ci
+  build:
+    commands:
+      - echo Building backend...
+      - # Add custom build steps here if needed
+  post_build:
+    commands:
+      - echo Preparing artifacts...
+      - cd ..
+      - mkdir -p dist
+      - cp -r backend/* dist/
+      - rm -rf dist/node_modules
+      - cp appspec.yml dist/
+      - mkdir -p dist/scripts
+      - cp -r scripts/* dist/scripts/
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist
+  discard-paths: no
