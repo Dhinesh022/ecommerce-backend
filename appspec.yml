@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /tmp/deploy_backend
+hooks:
+  BeforeInstall:
+    - location: scripts/install_backend.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/start_backend.sh
+      timeout: 300
+      runas: root
